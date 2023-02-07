@@ -28,6 +28,10 @@ jobs:
           cd build
           cmake ..
           make -j
+      - name: "Execute Tests"
+        run: |
+          cd build
+          sudo make test 
       - name: "Upload build folder"
         uses: actions/upload-artifact@v3
         with:
