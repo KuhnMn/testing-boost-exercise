@@ -6,20 +6,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: "Install clang-format"
-      run: apt update && apt install clang-format
+      run: sudo apt update && sudo apt install clang-format
     - name: "Check Style with clang-format"
       run: clang-format src/.cpp src/.hpp tests/*.cpp --dry-run -Werror
   build:
     runs-on: ubuntu-latest
     steps:
       - name: "Install misc"
-        run: apt update && apt install g++ build-essential -y  cmake -y  git -y wget -y 
+        run: sudo apt update && sudo apt install g++ build-essential -y  cmake -y  git -y wget -y 
       - name: "Install Boost"
-        run: apt install libboost-all-dev -y
+        run: sudo apt install libboost-all-dev -y
       - name: "Install eigen"
-        run: apt install libeigen3-dev -y 
+        run: sudo apt install libeigen3-dev -y 
       - name: "Install yaml"
-        run: apt install libyml-cpp-dev -y
+        run: sudo apt install libyml-cpp-dev -y
       - name: "Create Directory"
         uses: actions/checkout@v2
       - name: "Build sidemade"
