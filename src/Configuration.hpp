@@ -17,6 +17,7 @@ struct Configuration {
   // Type to decompose matrix
   MatrixSolver::DecompositionType decompositionType;
 
-  // Size of matrix along one dimension, matrix has size _matrixSize x _matrixSize
+  // Size of matrix along one dimension, matrix has size _matrixSize x
+  // _matrixSize
   int matrixSize;
 };
