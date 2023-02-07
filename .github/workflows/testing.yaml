@@ -39,6 +39,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: "Download build folder"
+        uses: actions/download-artifact@v3
+        with:
+          name: sidemade_build
+      - run: ls -R
       - name: "Install misc"
         run: sudo apt update && sudo apt install g++ build-essential -y  cmake -y  git -y wget -y 
       - name: "Install Boost"
@@ -47,10 +52,6 @@ jobs:
         run: sudo apt install libeigen3-dev -y 
       - name: "Install yaml"
         run: sudo apt install libyaml-cpp-dev -y
-      - name: "Download build folder"
-        uses: actions/download-artifact@v3
-        with:
-          name: sidemade_build
       - name: "Execute Tests"
         run: |
           cd sidemade_build
