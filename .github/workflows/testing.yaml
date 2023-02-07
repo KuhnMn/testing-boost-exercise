@@ -19,7 +19,7 @@ jobs:
       - name: "Install eigen"
         run: sudo apt install libeigen3-dev -y 
       - name: "Install yaml"
-        run: sudo apt install libyml-cpp-dev -y
+        run: sudo apt install libyaml-cpp-dev -y
       - name: "Create Directory"
         uses: actions/checkout@v2
       - name: "Build sidemade"
@@ -39,6 +39,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: "Install misc"
+        run: sudo apt update && sudo apt install g++ build-essential -y  cmake -y  git -y wget -y 
+      - name: "Install Boost"
+        run: sudo apt install libboost-all-dev -y
+      - name: "Install eigen"
+        run: sudo apt install libeigen3-dev -y 
+      - name: "Install yaml"
+        run: sudo apt install libyaml-cpp-dev -y
       - name: "Download build folder"
         uses: actions/download-artifact@v3
         with:
