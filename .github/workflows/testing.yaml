@@ -57,7 +57,7 @@ jobs:
       - name: "Execute Tests"
         run: |
           cd build
-          make test
+          sudo make test 
 
       
   
