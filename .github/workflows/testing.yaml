@@ -8,7 +8,7 @@ jobs:
     - name: "Install clang-format"
       run: sudo apt update && sudo apt install clang-format
     - name: "Check Style with clang-format"
-      run: clang-format src/.cpp src/.hpp tests/*.cpp --dry-run -Werror
+      run: clang-format src/*.cpp src/*.hpp tests/*.cpp --dry-run -Werror
   build:
     runs-on: ubuntu-latest
     steps:
