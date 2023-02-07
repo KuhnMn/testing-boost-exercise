@@ -53,6 +53,7 @@ jobs:
           name: sidemade_build
       - name: "Execute Tests"
         run: |
+          cd sidemade_build
           cd build
           make test
 
