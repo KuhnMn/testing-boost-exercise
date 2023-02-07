@@ -44,7 +44,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: sidemade_build
-          path: ./build
+          path: build/
       - name: "Install misc"
         run: sudo apt update && sudo apt install g++ build-essential -y  cmake -y  git -y wget -y 
       - name: "Install Boost"
