@@ -1,3 +1,4 @@
+[![GitHub Badge](https://github.com/KuhnMn/testing-boost-exercise/actions/workflows/testing.yaml/badge.svg)](https://github.com/KuhnMn/testing-boost-exercise/actions/workflows/testing.yaml)
 # SIDEMADE - Simple Dense Matrix Decomposition
 
 A simple demo code to read dense matrices from files and solve linear systems with them.

@@ -1,0 +1,66 @@
+name: TestingBoostWorkflow
+on: [push]
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: "Install clang-format"
+      run: sudo apt update && sudo apt install clang-format
+    - name: "Check Style with clang-format"
+      run: clang-format src/*.cpp src/*.hpp tests/*.cpp --dry-run -Werror
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Install misc"
+        run: sudo apt update && sudo apt install g++ build-essential -y  cmake -y  git -y wget -y 
+      - name: "Install Boost"
+        run: sudo apt install libboost-all-dev -y
+      - name: "Install eigen"
+        run: sudo apt install libeigen3-dev -y 
+      - name: "Install yaml"
+        run: sudo apt install libyaml-cpp-dev -y
+      - name: "Create Directory"
+        uses: actions/checkout@v2
+      - name: "Build sidemade"
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make -j
+      - name: "Execute Tests"
+        run: |
+          cd build
+      - name: "Upload build folder"
+        uses: actions/upload-artifact@v3
+        with:
+          name: sidemade_build
+          path: ${{ github.workspace }}/build
+          retention-days: 1
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: mkdir build
+      - name: "Download build folder"
+        uses: actions/download-artifact@v3
+        with:
+          name: sidemade_build
+          path: build/
+      - name: "Install misc"
+        run: sudo apt update && sudo apt install g++ build-essential -y  cmake -y  git -y wget -y tree --dry-run
+      - name: "Install Boost"
+        run: sudo apt install libboost-all-dev -y
+      - name: "Install eigen"
+        run: sudo apt install libeigen3-dev -y 
+      - name: "Install yaml"
+        run: sudo apt install libyaml-cpp-dev -y
+      - name: "Execute Tests"
+        run: |
+          cd build
+          chmod +x ./testsidemade
+          sudo make test 
+
+      
+  
