@@ -31,7 +31,6 @@ jobs:
       - name: "Execute Tests"
         run: |
           cd build
-          sudo make test 
       - name: "Upload build folder"
         uses: actions/upload-artifact@v3
         with:
@@ -51,7 +50,6 @@ jobs:
           path: build/
       - name: "Install misc"
         run: sudo apt update && sudo apt install g++ build-essential -y  cmake -y  git -y wget -y tree --dry-run
-      - run: tree
       - name: "Install Boost"
         run: sudo apt install libboost-all-dev -y
       - name: "Install eigen"
@@ -61,6 +59,7 @@ jobs:
       - name: "Execute Tests"
         run: |
           cd build
+          chmod +x ./testsidemade
           sudo make test 
 
       
