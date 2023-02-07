@@ -22,11 +22,13 @@ RUN cmake ..
 
 RUN make
 
-run make install
+RUN make install
 
 WORKDIR /main
 
 COPY . .
+
+RUN mkdir build
 
 CMD ["/bin/bash"]
 

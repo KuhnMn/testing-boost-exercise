@@ -1,16 +1,52 @@
-name: SSE CI/CD
+name: TestingBoostWorkflow
 on: [push]
 jobs:
-  style_check:
+  style:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: "Install clang-format"
+      run: apt update && apt install clang-format
+    - name: "Check Style with clang-format"
+      run: clang-format src/.cpp src/.hpp tests/*.cpp --dry-run -Werror
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Install misc"
+        run: apt update && apt install g++ build-essential -y  cmake -y  git -y wget -y 
+      - name: "Install Boost"
+        run: apt install libboost-all-dev -y
+      - name: "Install eigen"
+        run: apt install libeigen3-dev -y 
+      - name: "Install yaml"
+        run: apt install libyml-cpp-dev -y
+      - name: "Create Directory"
+        uses: actions/checkout@v2
+      - name: "Build sidemade"
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make -j
+      - name: "Upload build folder"
+        uses: actions/upload-artifact@v3
+        with:
+          name: sidemade_build
+          path: build/
+          retention-days: 1
+  test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: "Install cmake"
-        uses: actions/setup-python@v4
+      - name: "Download build folder"
+        uses: actions/download-artifact@v3
         with:
-          python-version: '3.10'
-      - name: "Install black"
-        run: pip install black
-      - name: "Check style with black"
-        run: black --check .
+          name: sidemade_build
+      - name: "Execute Tests"
+        run: |
+          cd build
+          make test
+
+      
   
